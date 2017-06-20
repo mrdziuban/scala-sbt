@@ -11,8 +11,8 @@ sbt_versions=(
 for scala_version in ${scala_versions[@]}; do
   for sbt_version in ${sbt_versions[@]}; do
     version=scala-${scala_version}-sbt-${sbt_version}
-    docker build -t spikerlabs/scala-sbt:${version} --build-arg SCALA_VERSION=${scala_version} --build-arg SBT_VERSION=${sbt_version} .
-    docker push spikerlabs/scala-sbt:${version}
+    docker build -t mrdziuban/scala-sbt-jdk:${version} --build-arg SCALA_VERSION=${scala_version} --build-arg SBT_VERSION=${sbt_version} .
+    docker push mrdziuban/scala-sbt-jdk:${version}
     echo "Built ${version}"
   done
 done
