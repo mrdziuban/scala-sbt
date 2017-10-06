@@ -9,9 +9,11 @@ FROM  openjdk:8-jdk-alpine
 
 ARG SCALA_VERSION
 ARG SBT_VERSION
+ARG SBT_URL
 
-ENV SCALA_VERSION ${SCALA_VERSION:-2.12.2}
-ENV SBT_VERSION ${SBT_VERSION:-0.13.15}
+ENV SCALA_VERSION ${SCALA_VERSION:-2.12.3}
+ENV SBT_VERSION ${SBT_VERSION:-0.13.16}
+ENV SBT_URL ${SBT_URL:-http://dl.bintray.com/sbt/native-packages/sbt/0.13.16/sbt-0.13.16.tgz}
 
 RUN \
   echo "$SCALA_VERSION $SBT_VERSION" && \
@@ -19,13 +21,13 @@ RUN \
   touch /usr/lib/jvm/java-1.8-openjdk/jre/release && \
   apk add --no-cache bash && \
   apk add --no-cache curl && \
-  curl -fsL http://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz | tar xfz - -C /usr/local && \
+  curl -fL http://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz | tar xvfz - -C /usr/local && \
   ln -s /usr/local/scala-$SCALA_VERSION/bin/* /usr/local/bin/ && \
   scala -version && \
   scalac -version
 
 RUN \
-  curl -fsL http://dl.bintray.com/sbt/native-packages/sbt/$SBT_VERSION/sbt-$SBT_VERSION.tgz | tar xfz - -C /usr/local && \
+  curl -fL $SBT_URL | tar xvfz - -C /usr/local && \
   $(mv /usr/local/sbt-launcher-packaging-$SBT_VERSION /usr/local/sbt || true) \
   ln -s /usr/local/sbt/bin/* /usr/local/bin/ && \
-  sbt sbt-version
+  sbt sbtVersion
