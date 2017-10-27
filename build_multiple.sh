@@ -32,6 +32,7 @@ for scala_version in ${scala_versions[@]}; do
   for sbt_version in ${sbt_versions[@]}; do
     version=scala-${scala_version}-sbt-${sbt_version}
     docker build -t mrdziuban/scala-sbt-jdk:${version} \
+      --squash \
       --build-arg SCALA_VERSION=${scala_version} \
       --build-arg SBT_VERSION=${sbt_version} \
       --build-arg SBT_URL="${sbt_urls_map[$sbt_version]}" \
