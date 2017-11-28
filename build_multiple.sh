@@ -16,6 +16,7 @@ sbt_versions=(
   1.0.1
   1.0.2
   1.0.3
+  1.0.4
 )
 declare -A sbt_urls_map=(
   ["0.13.12"]="http://dl.bintray.com/sbt/native-packages/sbt/0.13.12/sbt-0.13.12.tgz"
@@ -26,6 +27,7 @@ declare -A sbt_urls_map=(
   ["1.0.1"]="https://github.com/sbt/sbt/releases/download/v1.0.1/sbt-1.0.1.tgz"
   ["1.0.2"]="https://github.com/sbt/sbt/releases/download/v1.0.2/sbt-1.0.2.tgz"
   ["1.0.3"]="https://github.com/sbt/sbt/releases/download/v1.0.3/sbt-1.0.3.tgz"
+  ["1.0.4"]="https://github.com/sbt/sbt/releases/download/v1.0.4/sbt-1.0.4.tgz"
 )
 
 for scala_version in ${scala_versions[@]}; do
