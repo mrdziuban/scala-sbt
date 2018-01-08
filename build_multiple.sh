@@ -4,8 +4,10 @@ set -e
 
 scala_versions=(
   2.11.11
+  2.11.12
   2.12.2
   2.12.3
+  2.12.4
 )
 sbt_versions=(
   0.13.12
@@ -17,6 +19,7 @@ sbt_versions=(
   1.0.2
   1.0.3
   1.0.4
+  1.1.0
 )
 declare -A sbt_urls_map=(
   ["0.13.12"]="http://dl.bintray.com/sbt/native-packages/sbt/0.13.12/sbt-0.13.12.tgz"
@@ -28,6 +31,7 @@ declare -A sbt_urls_map=(
   ["1.0.2"]="https://github.com/sbt/sbt/releases/download/v1.0.2/sbt-1.0.2.tgz"
   ["1.0.3"]="https://github.com/sbt/sbt/releases/download/v1.0.3/sbt-1.0.3.tgz"
   ["1.0.4"]="https://github.com/sbt/sbt/releases/download/v1.0.4/sbt-1.0.4.tgz"
+  ["1.1.0"]="https://github.com/sbt/sbt/releases/download/v1.1.0/sbt-1.1.0.tgz"
 )
 
 for scala_version in ${scala_versions[@]}; do
@@ -39,7 +43,14 @@ for scala_version in ${scala_versions[@]}; do
       --build-arg SBT_VERSION=${sbt_version} \
       --build-arg SBT_URL="${sbt_urls_map[$sbt_version]}" \
       .
-    docker push mrdziuban/scala-sbt-jdk:${version}
     echo "Built ${version}"
+  done
+done
+
+for scala_version in ${scala_versions[@]}; do
+  for sbt_version in ${sbt_versions[@]}; do
+    version=scala-${scala_version}-sbt-${sbt_version}
+    docker push mrdziuban/scala-sbt-jdk:${version}
+    echo "Pushed ${version}"
   done
 done
