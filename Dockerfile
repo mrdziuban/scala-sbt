@@ -5,7 +5,7 @@
 #
 
 # Pull base image
-FROM  openjdk:8u131-jdk-alpine
+FROM openjdk:8u131-jdk-alpine
 
 ARG SCALA_VERSION
 ARG SBT_VERSION
@@ -19,7 +19,7 @@ RUN \
   echo "$SCALA_VERSION $SBT_VERSION" && \
   mkdir -p /usr/lib/jvm/java-1.8-openjdk/jre && \
   touch /usr/lib/jvm/java-1.8-openjdk/jre/release && \
-  apk add --no-cache bash bc curl && \
+  apk add --no-cache bash bc curl g++ gcc git make nodejs-current nodejs-current-npm openssh python2 && \
   curl -fL http://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz | tar xvfz - -C /usr/local && \
   ln -s /usr/local/scala-$SCALA_VERSION/bin/* /usr/local/bin/ && \
   scala -version && \
